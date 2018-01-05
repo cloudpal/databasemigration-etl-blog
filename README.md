@@ -5,7 +5,7 @@ This repo includes two CloudFormation templates that can be deployed in US-East-
 
 Details about the files in this repo:
 
-## 1. migrationresource.template ## 
+##  migrationresource.template ## 
  This template deploys a stack consisting of:
  1. VPC
  1. IGW - Internet Gateway
@@ -26,20 +26,18 @@ Details about the files in this repo:
 
 Design:
 ![GitHub Logo](/images/migrationresourcesTemplate.png)
-/**Format: ![Alt Text](https://s3.us-east-2.amazonaws.com/blog-scripts-glueetl/cfscripts/img/migrationresourcesTemplate.png)**/
 
 
-## 1. glueblog.template
+## glueblog.template
  This template deploys a stack consisting of resources in AWA Glue.  The resources are created based on the output of migrationresource stack.  
-	1.	a) AWS Glue RDS Amazon Aurora MySQL JDBC connection
-	1.	b) AWS Glue database named hrdb
-	1.	c) AWS Glue crawler 
-	1.	d) AWS Glue ETL Job - The job uses PySpark [blogetl.py] script stored in a region specific s3 bucket for ETL in the job.
+ 1. AWS Glue RDS Amazon Aurora MySQL JDBC connection
+ 1. AWS Glue database named hrdb
+ 1. AWS Glue crawler 
+ 1. AWS Glue ETL Job - The job uses PySpark [blogetl.py] script stored in a region specific s3 bucket for ETL in the job.
 
 Design:
 ![GitHub Logo](/images/glueblogTemplate.png)
-/**Format: ![Alt Text](https://s3.us-east-2.amazonaws.com/blog-scripts-glueetl/cfscripts/img/glueblogTemplate.png)**/
 
 
-## 1. blogetl.py
-Script that does an inner join of EMPLOYEES and DEPARTMENTS tables in HRDATA database and writes the results of the join a new table called EMPLOYEES_DEPARTMENTS in RDS Amazon Aurora MySQL database.	   
+## blogetl.py
+ Script that does an inner join of EMPLOYEES and DEPARTMENTS tables in HRDATA database and writes the results of the join a new table called EMPLOYEES_DEPARTMENTS in RDS Amazon Aurora MySQL database.	   
