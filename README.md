@@ -5,32 +5,32 @@ This repo includes two CloudFormation templates that can be deployed in US-East-
 
 Details about the files in this repo:
 
-## 1. migrationresource.template
-This template deploys a stack consisting of:
-	1.	a) VPC
-	1.	b) IGW - Internet Gateway
-	1.	c) IAM Role for migration
-	1.	d) 2 Public Subnets in two different AZ within a region - [PublicSubnet1, PublicSubnet2] 
-	1.	e) Route tables
-	1.	f) VPC S3 Endpoint	   
-	1.	g) Security Group for EC2 instance
-	1.	h) Elatic IP for EC2 instance
-	1.	i) EC2 instance from an AMI preconfigured with Oracle XE and HRDATA database.
-	1.	j) IAM instance profile
-	1.	k) S3 Bucket 
-	1.	l) DB Subnet Group
-	1.	m) RDS Aurora MySQL Cluster
-	1.	n) RDS Aurora MySQL DB Instance
-	1.	o) Replication Subnet Group
-	1.	p) Replication Instance
+## 1. migrationresource.template ## 
+ This template deploys a stack consisting of:
+ 1. VPC
+ 1. IGW - Internet Gateway
+ 1. IAM Role for migration
+ 1. 2 Public Subnets in two different AZ within a region - [PublicSubnet1, PublicSubnet2] 
+ 1. Route tables
+ 1. VPC S3 Endpoint	   
+ 1. Security Group for EC2 instance
+ 1. Elatic IP for EC2 instance
+ 1. EC2 instance from an AMI preconfigured with Oracle XE and HRDATA database.
+ 1. IAM instance profile
+ 1. S3 Bucket 
+ 1. DB Subnet Group
+ 1. RDS Aurora MySQL Cluster
+ 1. RDS Aurora MySQL DB Instance
+ 1. Replication Subnet Group
+ 1. Replication Instance
 
 Design:
 ![GitHub Logo](/images/migrationresourcesTemplate.png)
-Format: ![Alt Text](https://s3.us-east-2.amazonaws.com/blog-scripts-glueetl/cfscripts/img/migrationresourcesTemplate.png)
+/**Format: ![Alt Text](https://s3.us-east-2.amazonaws.com/blog-scripts-glueetl/cfscripts/img/migrationresourcesTemplate.png)**/
 
 
 ## 1. glueblog.template
-This template deploys a stack consisting of resources in AWA Glue.  The resources are created based on the output of migrationresource stack.  
+ This template deploys a stack consisting of resources in AWA Glue.  The resources are created based on the output of migrationresource stack.  
 	1.	a) AWS Glue RDS Amazon Aurora MySQL JDBC connection
 	1.	b) AWS Glue database named hrdb
 	1.	c) AWS Glue crawler 
@@ -38,7 +38,7 @@ This template deploys a stack consisting of resources in AWA Glue.  The resource
 
 Design:
 ![GitHub Logo](/images/glueblogTemplate.png)
-Format: ![Alt Text](https://s3.us-east-2.amazonaws.com/blog-scripts-glueetl/cfscripts/img/glueblogTemplate.png)
+/**Format: ![Alt Text](https://s3.us-east-2.amazonaws.com/blog-scripts-glueetl/cfscripts/img/glueblogTemplate.png)**/
 
 
 ## 1. blogetl.py
