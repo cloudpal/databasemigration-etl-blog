@@ -25,6 +25,7 @@ Details about the files in this repo:
  1. Replication Instance
 
 Design:
+
 ![GitHub Logo](/images/migrationresourcesTemplate.png)
 
 
@@ -33,9 +34,10 @@ Design:
  1. AWS Glue RDS Amazon Aurora MySQL JDBC connection
  1. AWS Glue database named hrdb
  1. AWS Glue crawler 
- 1. AWS Glue ETL Job - The job uses PySpark [blogetl.py] script stored in a region specific s3 bucket for ETL in the job.
+ 1. AWS Glue ETL Job - The job uses PySpark [blogetl.py] script stored in a s3 bucket for ETL in the job.
 
 Design:
+
 ![GitHub Logo](/images/glueblogTemplate.png)
 
 
