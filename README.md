@@ -40,6 +40,27 @@ Design:
 
 ![GitHub Logo](/images/glueblogTemplate.png)
 
+## oracle-aurora-postgresql-deployment.template
+This template deploys a stack consisting of:
+ 1. VPC
+ 1. IGW - Internet Gateway
+ 1. IAM Role for migration
+ 1. 2 Public Subnets in two different AZ within a region - [PublicSubnet1, PublicSubnet2]
+ 1. Route tables
+ 1. VPC S3 Endpoint
+ 1. Security Group for EC2 instance
+ 1. Elatic IP for EC2 instance
+ 1. EC2 instance from an AMI preconfigured with Oracle XE and HRDATA database.
+ 1. IAM instance profile
+ 1. S3 Bucket
+ 1. DB Subnet Group
+ 1. RDS Aurora PostgreSQL Cluster
+ 1. RDS Aurora PostgreSQL DB Instance
+ 1. Replication Subnet Group
+ 1. Replication Instance
+
+Design:
+![GitHub Logo](/images/oracle-aurora-postgresql-deployment-designer.png)
 
 ## blogetl.py
  Script that does an inner join of EMPLOYEES and DEPARTMENTS tables in HRDATA database and writes the results of the join a new table called EMPLOYEES_DEPARTMENTS in RDS Amazon Aurora MySQL database.	   
