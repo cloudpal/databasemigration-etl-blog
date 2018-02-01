@@ -959,7 +959,7 @@
                 "Fn::Join": [
                     "",
                     [
-                        "jdbc:mysql://",
+                        "jdbc:postgresql://",
                         {
                             "Fn::GetAtt": [
                                 "AuroraCluster",
@@ -973,7 +973,7 @@
                                 "Endpoint.Port"
                             ]
                         },
-                        "/HRDATA"
+                        "/mydb"
                     ]
                 ]
             },
