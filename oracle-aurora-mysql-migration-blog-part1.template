@@ -2,9 +2,7 @@
   "AWSTemplateFormatVersion": "2010-09-09",
   "Parameters": {
     "S3BucketName": {
-      "AllowedPattern": "[a-z0-9]+",
-      "ConstraintDescription": "must contain only lower case characters and numbers.",
-      "Description": "The S3 Bucket Name. Use numbers and lowercase characters only",
+      "Description": "The S3 Bucket Name.",
       "Type": "String"
     },
     "KeyName": {
@@ -13,19 +11,19 @@
       "AllowedPattern" : ".+",
       "ConstraintDescription": "must be the name of an existing EC2 KeyPair."
     },
-    "VPCCIDR": {
+    "VPCCIDRBlock": {
       "Description": "CIDR Block for the VPC you are creating.",
       "Type": "String",
       "Default": "10.0.0.0/16",
       "AllowedPattern": "[a-zA-Z0-9]+\\..+"
     },
-    "VPCSUBNET": {
+    "VPCSubnet1": {
       "Description": "CIDR Block for the VPC you are creating. This subnet is for Linux instance with Oracle and Amazon Aurora",
       "Type": "String",
       "Default": "10.0.0.0/24",
       "AllowedPattern": "[a-zA-Z0-9]+\\..+"
     },
-    "VPCSUBNET2": {
+    "VPCSubnet2": {
       "Description": "CIDR Block for the VPC you are creating.",
       "Type": "String",
       "Default": "10.0.1.0/24",
@@ -65,6 +63,28 @@
       "ConstraintDescription": "must contain only alphanumeric characters with minimum of 8 characters."
     }
   },
+  "Metadata" : {
+  "AWS::CloudFormation::Interface" : {
+    "ParameterGroups" : [
+      {
+        "Label" : { "default" : "Network Configuration" },
+        "Parameters" : [ "VPCCIDRBlock", "VPCSubnet1", "VPCSubnet2" ,"MyIP"]
+      },
+      {
+        "Label" : { "default":"Amazon EC2 Configuration" },
+        "Parameters" : [  "KeyName" ]
+      },
+      {
+        "Label" : { "default":"Amazon Aurora Configuration" },
+        "Parameters" : [  "AuroraDBUsername", "AuroraDBPassword" ]
+      },
+      {
+        "Label" : { "default":"Other AWS Resource Configuration" },
+        "Parameters" : [  "S3BucketName", "DMSVPCRoleExists" ]
+      }
+    ]
+  }
+},
   "Mappings": {
     "RegionMap": {
       "us-east-1": {
@@ -372,7 +392,7 @@
       "Type": "AWS::EC2::VPC",
       "Properties": {
         "CidrBlock": {
-          "Ref": "VPCCIDR"
+          "Ref": "VPCCIDRBlock"
         },
         "EnableDnsSupport": "true",
         "EnableDnsHostnames": "true"
@@ -383,7 +403,7 @@
       "DependsOn": "VPC",
       "Properties": {
         "CidrBlock": {
-          "Ref": "VPCSUBNET"
+          "Ref": "VPCSubnet1"
         },
         "VpcId": {
           "Ref": "VPC"
@@ -402,7 +422,7 @@
       "Type": "AWS::EC2::Subnet",
       "Properties": {
         "CidrBlock": {
-          "Ref": "VPCSUBNET2"
+          "Ref": "VPCSubnet2"
         },
         "VpcId": {
           "Ref": "VPC"

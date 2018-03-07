@@ -2,9 +2,7 @@
     "AWSTemplateFormatVersion": "2010-09-09",
     "Parameters": {
         "S3BucketName": {
-            "AllowedPattern": "[a-z0-9]+",
-            "ConstraintDescription": "must contain only lower case characters and numbers.",
-            "Description": "The S3 Bucket Name. Use numbers and lowercase characters only",
+            "Description": "The S3 Bucket Name.",
             "Type": "String"
         },
         "KeyName": {
@@ -13,7 +11,7 @@
             "AllowedPattern": ".+",
             "ConstraintDescription": "must be the name of an existing EC2 KeyPair."
         },
-        "VPCCIDR": {
+        "VPCCIDRBlock": {
             "Description": "CIDR Block for the VPC you are creating.",
             "Type": "String",
             "Default": "10.0.0.0/16",
@@ -50,7 +48,7 @@
         "AuroraDBUsername": {
             "Default": "auradmin",
             "NoEcho": "false",
-            "Description": "Enter database Admin username for RDS Aurora MySQL (default username: auradmin) ",
+            "Description": "Enter database Admin username for RDS Aurora PostgreSQL (default username: auradmin) ",
             "Type": "String",
             "MinLength": "4",
             "MaxLength": "16",
@@ -68,6 +66,28 @@
             "ConstraintDescription": "must contain only alphanumeric characters with minimum of 8 characters."
         }
     },
+    "Metadata" : {
+    "AWS::CloudFormation::Interface" : {
+      "ParameterGroups" : [
+        {
+          "Label" : { "default" : "Network Configuration" },
+          "Parameters" : [ "VPCCIDRBlock", "VPCSubnet1", "VPCSubnet2" ,"MyIP"]
+        },
+        {
+          "Label" : { "default":"Amazon EC2 Configuration" },
+          "Parameters" : [  "KeyName" ]
+        },
+        {
+          "Label" : { "default":"Amazon Aurora Configuration" },
+          "Parameters" : [  "AuroraDBUsername", "AuroraDBPassword" ]
+        },
+        {
+          "Label" : { "default":"Other AWS Resource Configuration" },
+          "Parameters" : [  "S3BucketName", "DMSVPCRoleExists" ]
+        }
+      ]
+    }
+  },
     "Mappings": {
         "RegionMap": {
             "us-east-1": {
@@ -420,7 +440,7 @@
             "Type": "AWS::EC2::VPC",
             "Properties": {
                 "CidrBlock": {
-                    "Ref": "VPCCIDR"
+                    "Ref": "VPCCIDRBlock"
                 },
                 "EnableDnsSupport": "true",
                 "EnableDnsHostnames": "true"
@@ -848,7 +868,7 @@
             "Value": "1521"
         },
         "AuroraPostgreSQLPORT": {
-            "Description": "Amazon Aurora MySQL default PORT",
+            "Description": "Amazon Aurora PostgreSQL default PORT",
             "Value": "5432"
         },
         "OracleIpAddress": {
@@ -873,7 +893,7 @@
             }
         },
         "AuroraSecurityGroupID": {
-            "Description": "Name of RDS Aurora MySQL  SecurityGroup ID.",
+            "Description": "Name of RDS Aurora PostgreSQL  SecurityGroup ID.",
             "Value": {
                 "Ref": "AuroraSecurity"
             },
@@ -898,7 +918,7 @@
             }
         },
         "AuroraPostgreSQLUserName": {
-            "Description": "RDS Aurora MySQL  username",
+            "Description": "RDS Aurora PostgreSQL  username",
             "Value": {
                 "Ref": "AuroraDBUsername"
             },
@@ -909,7 +929,7 @@
             }
         },
         "AuroraPostgreSQLPassword": {
-            "Description": "RDS Aurora MySQL  password",
+            "Description": "RDS Aurora PostgreSQL  password",
             "Value": {
                 "Ref": "AuroraDBPassword"
             },
@@ -920,7 +940,7 @@
             }
         },
         "AuroraSubnetAZ": {
-            "Description": "RDS Aurora MySQL AvailabilityZone",
+            "Description": "RDS Aurora PostgreSQL AvailabilityZone",
             "Value": {
                 "Fn::GetAtt": [
                     "PublicSubnet1",
@@ -934,7 +954,7 @@
             }
         },
         "AuroraSubnetID": {
-            "Description": "RDS Aurora MySQL AvailabilityZone",
+            "Description": "RDS Aurora PostgreSQL AvailabilityZone",
             "Value": {
                 "Ref": "PublicSubnet1"
             },
@@ -945,7 +965,7 @@
             }
         },
         "AuroraPostgreSQLDatabaseName": {
-            "Description": "RDS Aurora MySQL database name",
+            "Description": "RDS Aurora PostgreSQL database name",
             "Value": "mydb",
             "Export": {
                 "Name": {
